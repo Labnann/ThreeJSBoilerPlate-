@@ -59,11 +59,6 @@ function animate() {
     cube3.rotation.y += .01;
 
 
-    const canvas = renderer.domElement;
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
-    camera.updateProjectionMatrix()
-
-
 	renderer.render( scene, camera );
 }
 
