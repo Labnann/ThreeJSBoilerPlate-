@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {GUI} from "dat.gui";
-import {Material, Mesh} from "three";
+import {Material, Mesh, MeshBasicMaterial, MeshPhongMaterial, PlaneGeometry} from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 let canvas = document.querySelector("#c") as HTMLCanvasElement;
@@ -12,11 +12,12 @@ controls.target.set(0, 5, 0);
 controls.update();
 
 
-camera.position.set(0,50,0);
-camera.up.set(0,0,1);
-camera.lookAt(0,0,0);
+camera.position.set(0,20,100);
 
 const scene = new THREE.Scene();
+
+const plane = new THREE.Mesh(new PlaneGeometry(100,100),new MeshBasicMaterial({color:0x449900}));
+scene.add(plane);
 
 {
 
