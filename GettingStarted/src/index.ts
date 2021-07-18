@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import {GUI} from "dat.gui";
-import {Material, Mesh, MeshBasicMaterial, MeshPhongMaterial, PlaneGeometry} from "three";
+import {Line, Material, Mesh, MeshBasicMaterial, MeshPhongMaterial, PlaneGeometry} from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import {LineGeometry} from "three/examples/jsm/lines/LineGeometry";
 
 let canvas = document.querySelector("#c") as HTMLCanvasElement;
 const renderer = new THREE.WebGLRenderer({canvas});
@@ -12,13 +13,20 @@ controls.target.set(0, 5, 0);
 controls.update();
 
 
-camera.position.set(0,20,100);
+camera.position.set(0,20,200);
+camera.lookAt(0,0,0)
 
 const scene = new THREE.Scene();
 
-const plane = new THREE.Mesh(new PlaneGeometry(100,100),new MeshBasicMaterial({color:0x449900}));
+const plane = new THREE.Mesh(new PlaneGeometry(100,100,256,256),new MeshBasicMaterial({color:0x449900, wireframe: true}));
 scene.add(plane);
 
+{
+const planePositions = plane.geometry.getAttribute("position");
+planePositions.setXYZ(1,10,30,40);
+
+plane.geometry.attributes.position.needsUpdate = true;
+}
 {
 
     let light = new THREE.DirectionalLight("0xFFFFFF",1);
