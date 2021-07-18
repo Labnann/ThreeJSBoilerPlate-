@@ -1,13 +1,17 @@
 import * as THREE from "three";
 import {GUI} from "dat.gui";
 import {Material, Mesh} from "three";
-
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 let canvas = document.querySelector("#c") as HTMLCanvasElement;
 const renderer = new THREE.WebGLRenderer({canvas});
 const gui = new GUI();
-
 const camera = new THREE.PerspectiveCamera( 40, 2, 0.1, 1000);
+const controls = new OrbitControls(camera,renderer.domElement);
+controls.target.set(0, 5, 0);
+controls.update();
+
+
 camera.position.set(0,50,0);
 camera.up.set(0,0,1);
 camera.lookAt(0,0,0);
