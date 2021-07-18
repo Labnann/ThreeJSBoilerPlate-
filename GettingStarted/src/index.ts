@@ -20,45 +20,9 @@ const scene = new THREE.Scene();
 
 {
 
-    let light = new THREE.PointLight("0xFFFFFF",3);
+    let light = new THREE.DirectionalLight("0xFFFFFF",1);
     scene.add(light);
 }
-
-const objects : THREE.Object3D[] =[];
-
-const sphereGeometry = new THREE.SphereGeometry(1,6,6);
-const solarSystem = new THREE.Object3D();
-scene.add(solarSystem)
-objects.push(solarSystem);
-
-const sunMaterial = new THREE.MeshPhongMaterial({emissive: 0xFFFF00});
-const sunMesh = new THREE.Mesh(sphereGeometry,sunMaterial);
-sunMesh.scale.set(5,5,5);
-solarSystem.add(sunMesh);
-objects.push(sunMesh);
-
-const earthOrbit = new THREE.Object3D();
-earthOrbit.position.x=10;
-solarSystem.add(earthOrbit);
-objects.push(earthOrbit);
-
-const earthMaterial = new THREE.MeshPhongMaterial({color: 0x2233FF, emissive: 0x112244});
-const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
-earthOrbit.add(earthMesh);
-objects.push(earthMesh);
-
-
-const moonOrbit = new THREE.Object3D();
-moonOrbit.position.x= 2;
-earthOrbit.add(moonOrbit);
-objects.push(moonOrbit);
-
-const moonMaterial = new THREE.MeshPhongMaterial({color: 0x888888, emissive: 0x222222});
-
-const moonMesh = new THREE.Mesh(sphereGeometry,moonMaterial);
-moonMesh.scale.set(0.5,0.5,0.5)
-moonOrbit.add(moonMesh);
-objects.push(moonMesh);
 
 
 
@@ -112,18 +76,6 @@ function resizeRendererToDisplaySize(renderer:THREE.Renderer){
 }
 
 
-function makeAxisGrid(node :THREE.Object3D, label: string, units?: number) {
-    const helper = new AxisGridHelper(node, units);
-    gui.add(helper, 'visible').name(label);
-}
-
-makeAxisGrid(solarSystem, 'solarSystem', 25);
-makeAxisGrid(sunMesh, 'sunMesh');
-makeAxisGrid(earthOrbit, 'earthOrbit');
-makeAxisGrid(earthMesh, 'earthMesh');
-makeAxisGrid(moonOrbit, 'moonOrbit');
-makeAxisGrid(moonMesh, 'moonMesh');
-
 function render() {
 
 
@@ -132,10 +84,6 @@ function render() {
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
     }
-
-    objects.forEach((obj) => {
-        obj.rotation.y += .01;
-    });
 
     renderer.render(scene, camera);
 
