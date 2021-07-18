@@ -11,7 +11,6 @@ const controls = new OrbitControls(camera,renderer.domElement);
 controls.target.set(0, 5, 0);
 controls.update();
 
-
 camera.position.set(0,50,0);
 camera.up.set(0,0,1);
 camera.lookAt(0,0,0);
